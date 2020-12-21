@@ -137,19 +137,41 @@ a {
  color: darkBlue; 
 }
 
-
-
-</style><script role="script" id="twine-user-script" type="text/twine-javascript"></script><tw-passagedata pid="1" name="Start Screen" tags="" position="525,200" size="100,100">&lt;h2&gt;Welcome to &lt;/h2&gt;
-
-&lt;h1&gt;Alventure!&lt;/h1&gt;
-&lt;img src=&quot;Title.png&quot; width=200 height=200 alt=&quot;title&quot;&gt;
-Can you cross Canada in time to visit Bennett in Seattle before &#39;rona shuts down the country?
+.title {
+ 	position: relative;
+  	bottom: 175px;
+  z-index: -1;
+  padding: 0px;
+}
+#alventure {
+  position: relative;
+ z-index: 2; 
+}
+#titleText {
+ position: relative;
+   bottom: 200px;
+}
+.train {
+ 	position: relative;
+  z-index: -1;
+  bottom: 200px;
+}
+#do {
+ position: relative;
+  bottom: 300px;
+}
+</style><script role="script" id="twine-user-script" type="text/twine-javascript"></script><tw-passagedata pid="1" name="Start Screen" tags="" position="525,200" size="100,100">Welcome to
+&lt;h1 id=&quot;alventure&quot;&gt;Alventure!&lt;/h1&gt;
+&lt;img class =&quot;title&quot; height=800 width=800 src=&quot;Title.png&quot; alt=&quot;title&quot;&gt;
+&lt;div id=&quot;titleText&quot;&gt;Can you cross Canada in time to visit Bennett in Seattle before &#39;rona shuts down the country?
 
 (This is a work of fiction. Any resemblance to people living or dead is purely...well, it is on purpose. But the characteristics attributed to them are not representative of my feelings or assumptions about those people.) 
 
-Click start to begin.
+There are two modes. Hard modes gives you less time and money to start with. Otherwise, they are the same.
 
-[[Start]]
+[[Start normal mode|Start]]
+
+[[Start hard mode|Start][$money to 750, $day to 28]]&lt;/div&gt;
 
 </tw-passagedata><tw-passagedata pid="2" name="Notes" tags="" position="350,75" size="100,100">I have Al for my secret santa, and as he gave me the best present I&#39;ve ever received, and he&#39;s going through a hard time right now, I need to go big!
 
@@ -181,41 +203,17 @@ Other locations include Toronto, Winnipeg (it&#39;s very cold), Jasper (skiiing)
 
 And then he leaves me before feb 16, so if it&#39;s like 3 days before that, and he spent a night in Vancouver beforehand, we can put the end date at like Feb 12 or something. No, Alyssa&#39;s chat&#39;s say they arrive on Feb 15th, so could make the end Valentine&#39;s Day? Give them exactly a month
 
-</tw-passagedata><tw-passagedata pid="3" name="To do" tags="" position="225,75" size="100,100">Let&#39;s do this in a test driven manner.
-
-Then, can you do things on the way?
-Do events activate?
-
-Incorporating images?
-I think I can get a train image from Chelsea, and animate bits of it with CSS
-
-Make sure the speech classes are consistent, I&#39;ve been weird about the first letter case, I want to make it proper camelCase
-
-Maybe a lot of things just aren&#39;t available at night, and that encourages you to stay overnight. 
-
-Update talk text to reflect what the end mechanics are
+</tw-passagedata><tw-passagedata pid="3" name="To do" tags="" position="225,75" size="100,100">Do events activate?
 
 In non-functioned out passages, add checks for if you have enough money to do something
 
-We could encourage people to stay overnight by giving a morale penalty actions after dark in cities
+Incorporate friend quotes into array, add array to init, and shuffle it. 
 
-Check skiing
+Creating a completionist list
 
-One of the talks can be about how stuff in the header doesn&#39;t always update until the next screen
+Where do variables have to be declared in order to allow for repeated runs in one file
 
-The old length was 3946. I can fuck the numbers if you want to stretch things out
-
-Replace text divs with spans
-
-Battle might be too hard/arbitrary
-
-Incorporate friend quotes into array, add array to init, and shuffle it. Reset friend flag at each station
-
-Build hard mode by changing initial time and money
-
-Change friend so that after first time, it&#39;s a 50% chance
-
-Creating a completionist list</tw-passagedata><tw-passagedata pid="4" name="Journey info" tags="" position="475,75" size="100,100">Time: Jan 14 - Feb 14
+Link game over or win to start screen</tw-passagedata><tw-passagedata pid="4" name="Journey info" tags="" position="475,75" size="100,100">Time: Jan 14 - Feb 14
 
 Distance: 3,946 miles 
 
@@ -366,7 +364,7 @@ Time: $month/$day $time:00
 
 [[The guy furiously tapping at his phone]]
 
-[[Never mind-&gt;Halifax main]] </tw-passagedata><tw-passagedata pid="14" name="Halifax shop" tags="" position="525,850" size="100,100">Along the main street of Halifax, you find a little movie store. Perhaps it&#39;d be a good place to stock up on entertainment for the long trip ahead. The shop is as you remember moview stores being: dark, with swirly patterned carpeting below and rows upon rows of mostly completely unremarkable films. At random, you pick a row and browse.
+[[Never mind-&gt;Halifax main]] </tw-passagedata><tw-passagedata pid="14" name="Halifax shop" tags="" position="525,850" size="100,100">Along the main street of Halifax, you find a little movie store. Perhaps it&#39;d be a good place to stock up on entertainment for the long trip ahead. The shop is as you remember movie stores being: dark, with swirly patterned carpeting below and rows upon rows of mostly completely unremarkable films. At random, you pick a row and browse.
 &lt;&lt;silently&gt;&gt;&lt;&lt;set $bought to false&gt;&gt;
 &lt;&lt;set $shopArray to [$airBud, $airBud2, $airBud3, $airBud4, $airBud5]&gt;&gt;
 &lt;&lt;set $root to &quot;Halifax main&quot;&gt;&gt;&lt;&lt;/silently&gt;&gt;
@@ -380,8 +378,9 @@ Time: $month/$day $time:00
 [[...Check out main street?]]
 
 [[Just go back|Halifax main]]</tw-passagedata><tw-passagedata pid="16" name="Halifax station" tags="" position="525,1000" size="100,100">&lt;&lt;silently&gt;&gt;&lt;&lt;set $station to &quot;Halifax&quot;&gt;&gt;
+&lt;&lt;set $leg to 836&gt;&gt;
 &lt;&lt;set $destination to &quot;Montreal&quot;&gt;&gt;
-&lt;&lt;set $ticketPrice to 80&gt;&gt;
+&lt;&lt;set $ticketPrice to 100&gt;&gt;
 &lt;&lt;set $departureTime to 18&gt;&gt;&lt;&lt;/silently&gt;&gt;
 &lt;&lt;include &quot;Make station&quot;&gt;&gt;
 
@@ -405,7 +404,7 @@ But not anymore. Now, for a movie to cheer me up, it has to be a new one. After 
 &lt;&lt;/if&gt;&gt;
 &lt;&lt;if $init is 1&gt;&gt;
 &lt;&lt;if $morale &lt;= 0 || ($month &gt;= 2 and $day &gt;= 15)&gt;&gt;
-	&lt;set $init to 0&gt;&gt;&lt;&lt;goto &quot;Game over&quot;&gt;&gt;
+	&lt;set $day to 1&gt;&gt;&lt;&lt;set $init to 0&gt;&gt;&lt;&lt;goto &quot;Game over&quot;&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 &lt;&lt;if $morale &gt; 100&gt;&gt;&lt;&lt;set $morale to 100&gt;&gt;&lt;&lt;/if&gt;&gt;
@@ -417,6 +416,7 @@ You&#39;ve run out of time.
 &lt;&lt;/if&gt;&gt;
 
 &lt;h1&gt;Game Over!&lt;/h1&gt;</tw-passagedata><tw-passagedata pid="22" name="StoryInit" tags="" position="25,200" size="100,100">&lt;&lt;silently&gt;&gt;
+BASIC STORY VARIABLES
 &lt;&lt;set $distance to 3349&gt;&gt;
 &lt;&lt;set $morale to 50&gt;&gt;
 &lt;&lt;set $month to 1&gt;&gt;
@@ -424,6 +424,7 @@ You&#39;ve run out of time.
 &lt;&lt;set $time to 12&gt;&gt;
 &lt;&lt;set $inventory to []&gt;&gt;
 &lt;&lt;set $money to 1000&gt;&gt;
+MOVIES
 &lt;&lt;set $airBud = {name: &quot;Air Bud&quot;, description: &quot;He sits. He stays. He shoots. He scores.&quot;, morale: 10, price: 20, use: &quot;You enjoy the story of a talented dog and his painfully mediocre boy.&quot;}&gt;&gt;
 &lt;&lt;set $airBud2 = {name: &quot;Air Bud: Golden Receiver&quot;, description: &quot;Just dog it&quot;, morale: 8, price: 20, use: &quot;You sit through the story of dog who won&#39;t let being kidnapped by Russians stop him from playing catch.&quot;}&gt;&gt;
 &lt;&lt;set $airBud3 = {name: &quot;Air Bud: World Pup&quot;, description: &quot;The dog fucks in this one&quot;, morale: 6, price: 20, use: &quot;You endure the story of a talented dog who&#39;s actually dead at this point, leaving a zombie franchise behind.&quot;}&gt;&gt;
@@ -447,6 +448,7 @@ You&#39;ve run out of time.
 &lt;&lt;set $godfather = {name: &quot;The Godfather&quot;, description: &quot;I&#39;m gonna give you a movie you can&#39;t dislike&quot;, morale: 40, price: 40, use:&quot;Godfather, I come to you on the day of this train ride, to ask you to entertain me.&quot;}&gt;&gt;
 &lt;&lt;set $spaceOdyssey = {name: &quot;2001: A Space Odyssey&quot;, description: &quot;I&#39;m sorry, Al. I&#39;m afraid I can&#39;t do that.&quot;, morale: 40, price: 40, use:&quot;The beginning and the end are great! And a bunch of stuff happens in the middle that you&#39;re already forgetting.&quot;}&gt;&gt;
 &lt;&lt;set $artOfArt = {name: &quot;The Art of Art&quot;, description: &quot;Art is...artful.&quot;, morale: 15, price: 0, use:&quot;Art, you learn, is made by artists, through an artistic process called Art.&quot;}&gt;&gt;
+WEATHER
 &lt;&lt;set $weatherChange to 0&gt;&gt;
 &lt;&lt;set $clear to {name: &quot;Clear&quot;, multiplier: 1, message: &quot;The weather cleared up.&quot;}&gt;&gt;
 &lt;&lt;set $rainy to {name: &quot;Rainy&quot;, multiplier: 0.75, message: &quot;It started to rain.&quot;}&gt;&gt;
@@ -455,13 +457,18 @@ You&#39;ve run out of time.
 &lt;&lt;set $weatherArray to [$clear, $rainy, $snowy, $blizzard]&gt;&gt;
 &lt;&lt;set $weatherArray.shuffle()&gt;&gt;
 &lt;&lt;set $currentWeather to $clear&gt;&gt;
+WAITER
 &lt;&lt;set $waiterArray to [&quot;I\&#39;m almost embarassed to see you now, young sir. You know my secret, know my shame. I should keep my lips tighter, they have a tendency to flap. But I wouldn\&#39;t wish to make anyone uncomfortable. So I\&#39;ll end with this: thank you for listening to an old man ramble. May you do better with life than I did.&quot;, &quot;When the young girl went into seizure, that awful call went out over the PA system: \&#39;Is there a doctor on the flight?\&#39; I waited, my heart pounding, praying that someone would stand up. When none did, my feet dragged me forward. I explained that it had been some time, and that I could only do so much. And I tried. I really did. Perhaps not even a proper doctor, one with A grades and a stellar career that doesn&#39;t include driving buses, could haved saved her. But I couldn\&#39;t help but feel that my incompetence was the reason she died. I haven\&#39;t lost anyone since, when that dreadful call goes out on the PA, but I&#39;ll never forget that one.&quot;, &quot;I\&#39;ve been replaying our last conversation in my head, young sir, and I fear I may have given you the wrong impression. I was a doctor. In truth, I never wanted to be. The allure of travel drew me constantly away from the books and lectures necessary to properly learn medicine. But it was as my parents wished, and the times being what they were, I had little option but to comply. I didn\&#39;t have the heart for it, though. Losing patients made me lose myself. I ran away, and used my experiences with summer jobs to join an airline as a host. I loved it. I got to travel the world. But...well. Don&#39;t let me bother you, young sir, enjoy your meal.&quot;, &quot;It was in Taipei, young sir. Or rather, in the air above it. The thing that keeps me from flying anymore. I mentioned it before. I have done such things before, but never to one so young. So innocent. I haven&#39;t been able to completely extricate myself from such business, unfortunately. But I have stopped flying. I left the place as fast as I could, and bartered for passage on a container ship across the Pacific. It brought me to Vancouver. To me, that port screams freedom louder than the Statue of Liberty\&#39;s mighty frame.&quot;, &quot;If I told you I started as a bus driver, would you believe me? I think many are surprised. They guess that I was a butler, a valet, or a military man. But I was indeed a bus driver. In a small town, the name and location of which are irrelevant now. I haven\&#39;t been back for too long to claim it as a home. I believe the experience prepared me for this life better than those other occupations. I got to see people, each on their own personal journey, and ferry them to their destinations. I did so with solemn respect, as if each of them were on a life or death mission. Likely, some of them were. I\&#39;m part of a much larger team, now, but our value, instilled on me through that work, still drives me.&quot;, &quot;You\&#39;re moving, aren&#39;t you, young sir? You must feel conflicted. I know the feeling well. I&#39;ve rarely had the luxury of staying in one place for too long. People are not dissimilar to plants, are we? We\&#39;ll put down roots in whatever pot we\&#39;re stuck into. The difference is we may choose to uproot ourselves, even though it pains us. I play a game with the people like you I see come through here. I guess whether they\&#39;re running toward something, or away from something. What did I guess for you? I couldn\&#39;t possibly say, young sir. You&#39;ll have to imagine it yourself.&quot;, &quot;In my estimation, sir, and it is one informed by decades in the travel services industry, the train is the most perfect form of transportation. Cars lurch as the accelerate and decelerate, while boats rock and roll too often and irregularly. Planes have the advantage of speed, but have forgotten all about making travel desirable. And besides, I can no longer fly...But that\&#39;s a story for another time. The point is, trains lack these imperfections. They ride smooth, predictably, efficiently, and comfortably. I am truly blessed to have found my way to one at last. And you, young sir, should count yourself the same.&quot;, &quot;Have you ever been to Rome, young sir? It is one of the most remarkable places I have ever had the pleasure of visiting, and I&#39;ve seen many. In Rome, the weight of history presses down on you like the layers of dirt, rock and people that cover many relics from that era. In such a place, one is forced to ask himself difficult questions. Will our society tumble in the same way, pulled down by our flaws and excesses? If so, will there be people afterward, to walk through the monuments of our failure, imagining a more perfect version of us in awe? Will my funeral not be the same way? A false recollection, presided over by a husk.&quot;]&gt;&gt;
+FRIENDOS
+&lt;&lt;set $friendArray to [{name: &quot;Bennett&quot;, text: &quot;Al, I&#39;m so excited that you&#39;re coming my way. The west coast is a beautiful place, and it&#39;s going to be all the more beautiful for your presence. I hope I get to show you some of that beauty, and you know, also get drunk and play video games and stuff.&quot;}, {name: &quot;Hannah Ritchie&quot;, text: &quot;Hi Al! When the going gets tough or the winters get too cold, remember that you\&#39;ll always have friends to turn to. We\&#39;re just at the end of the phone, happy to return the kindness and warmth you always readily share with us. Sending you a virtual hug! Love, Smol Han.&quot;}, {name: &quot;Noah&quot;, text: &quot;Al: When you cast me as the fat bald man in your twisted Parlour Song production in St. Andrews, I was scared. Jamie made it very clear that you two had taken me chiefly due to my stated willingness to shave my head for the role. When the time came, you also made it clear that you would shave your head in solidarity with me, so I did not have to be the only bald 20 year old in St. Andrews. I didn\&#39;t even have to ask - you saw my nerves and acted the way a friend acts. And WHO ELSE but AL GILLESPIE would EVER do something so kind and thoughtful and permanent and self-effacing and funny?! And who else but Al Gillespie would look like a total snack when bald, while I looked like a large, bearded baby?&quot;}, {name: &quot;Jared&quot;, text: &quot;Heeeeeey, Al! Buddy! How goes? Sorry to call at such a weird time, I had a crazy couple of days. That second dose of peyote really didn\&#39;t mix well with the magic marker fumes. Anyways. I had a question about something that I knew only you would know, but I&#39;ve already forgotten. How you been? How\&#39;s Canada? Hopefully you got past the Mounties, I know from experience that they can be vicious. AMAB, etcetera. Okay this call is getting weird, sorry. I think the mouthwash chaser is kicking in. Just wanted to say hi and let you know how much I miss you. I\&#39;m so proud of you taking on this huge adventure, and making the most of this wild time we live in. You\&#39;ve always been the kind of person to live to the fullest, and I\&#39;ve always admired that in you. Although maybe I have taken that in the wrong direction. Idk. I&#39;ll let you know when the hallucinations die down. Later brother!&quot;}, {name: &quot;Lottie&quot;, text: &quot;Hi! Hope you\&#39;re doing ok. You\&#39;ve got this, Al. You\&#39;re absolutely smashing it. You\&#39;re talented and kind, and there ain\&#39;t nothing that you can\&#39;t do when you put your mind to it. Speak to you soon! Lottie.&quot;}, {name: &quot;Jamie&quot;, text: &quot;Look Al, you\&#39;ve survived an Alien apocalypse, you\&#39;ve survived bringing me back to life, hell you\&#39;ve even survived watching all one hour, forty four minutes and 24 seconds of The Other Side of Heaven. You can get through whatever Bennett is throwing at you.&quot;}, {name: &quot;Nishant&quot;, text: &quot;Hey friend. How\’s the super epic adventure? I think it shows real commitment to your podcast to do a remake of Forrest Gump except in Canada. Wait what? It\’s not a remake? Okay, well I guess you must really like Tim Hortons. Anyway, I know you must be super busy on your adventure, but I have a really important question: if you put wigs and glitter on some Ferraris, do you get a drag race? Well, I\’ll let you get back on with your adventure now. Go curl some curling stones against a bear for a portion of Timbits. Love, Nishant.&quot;}, {name: &quot;Hannah RC&quot;, text: &quot;Hullo Al! Courage my friend - you&#39;re a legend. From huge and wild house parties blaring ABBA to quiet companionable silences on the sofa after crying about Queer Eye - your company whatever the weather is a warm cup of tea. Here&#39;s to more of that in future. Love always, H.&quot;}]&gt;&gt;
+&lt;&lt;set $friendArray.shuffle()&gt;&gt;
+LYSSTIPS
+&lt;&lt;set $lysstips1 to 0&gt;&gt;
+&lt;&lt;set $lysstips2 to 0&gt;&gt;
 &lt;&lt;/silently&gt;&gt;
-</tw-passagedata><tw-passagedata pid="23" name="Test" tags="" position="325,400" size="100,100">_text_
+</tw-passagedata><tw-passagedata pid="23" name="Test" tags="" position="325,400" size="100,100">&lt;&lt;set $month to 2&gt;&gt;&lt;&lt;set $day to 13&gt;&gt;
 
---text--
-
-\__text</tw-passagedata><tw-passagedata pid="24" name="Halifax depart" tags="" position="525,1125" size="100,100">You step onto the platform and board the train. Luckily for you, train layouts are mostly pretty consistent, and you locate your seats easily. &lt;&lt;if $class is 1&gt;&gt;You settle into a private chamber with seats and a pair of simple beds.&lt;&lt;else&gt;&gt;You pile your things on the free seats beside you in the pod of four wide seats with a table in between.&lt;&lt;/if&gt;&gt;
+[[Go back|Halifax main]]</tw-passagedata><tw-passagedata pid="24" name="Halifax depart" tags="" position="525,1125" size="100,100">You step onto the platform and board the train. Luckily for you, train layouts are mostly pretty consistent, and you locate your seats easily. &lt;&lt;if $class is 1&gt;&gt;You settle into a private chamber with seats and a pair of simple beds.&lt;&lt;else&gt;&gt;You pile your things on the free seats beside you in the pod of four wide seats with a table in between.&lt;&lt;/if&gt;&gt;
 &lt;&lt;set $time to 18&gt;&gt;
 &lt;div class=&quot;lyssText&quot;&gt;Here we go! Hey, I don&#39;t need to tell you this, but Canada is a lot bigger than the UK. Like...a lot bigger. The travel will wear you down. So, try to do things to keep your spirits up. Okay? Are you excited?&lt;/div&gt;
 
@@ -474,6 +481,7 @@ You&#39;ve run out of time.
 Money: $ $money CA
 &lt;span id=&quot;morale&quot;&gt;Morale: $morale&lt;/span&gt;
 &lt;span id=&quot;time&quot;&gt;$month/$day $time:00&lt;/span&gt;
+&lt;img class =&quot;train&quot; height=800 width=800 src=&quot;Train.png&quot; alt=&quot;Train&quot;&gt;
 &lt;&lt;silently&gt;&gt;
 	&lt;&lt;repeat 2s&gt;&gt;
 		&lt;&lt;set $speed to Math.round(random(30, 80) *$currentWeather.multiplier)&gt;&gt;
@@ -511,7 +519,7 @@ Money: $ $money CA
 			&lt;&lt;replace &quot;#leg&quot;&gt;&gt;Distance to next stop: $leg&lt;&lt;/replace&gt;&gt;
 			&lt;&lt;if $morale &lt; 20 &amp;&amp; $friendFlag == 0&gt;&gt;
 				&lt;&lt;set $friendFlag to 1&gt;&gt;
-				&lt;&lt;if $friendArray.length &gt; random(1, 7)&gt;&gt;
+				&lt;&lt;if visited(&quot;Receive call&quot;) == 0 || random(0, 1) == 1&gt;&gt;
 					&lt;&lt;replace #phone&gt;&gt;&lt;&lt;link &quot;Your phone is ringing&quot; &quot;Receive call&quot;&gt;&gt;&lt;&lt;/link&gt;&gt;&lt;&lt;/replace&gt;&gt;
 					&lt;&lt;stop&gt;&gt;
 				&lt;&lt;/if&gt;&gt;
@@ -528,8 +536,7 @@ Money: $ $money CA
 	&lt;&lt;/repeat&gt;&gt;
 &lt;&lt;/silently&gt;&gt;
 
-
-[[Do something to pass the time|Travel act]]
+&lt;div id=&quot;do&quot;&gt;[[Do something to pass the time|Travel act]]&lt;/div&gt;
 </tw-passagedata><tw-passagedata pid="26" name="Travel act" tags="" position="1200,200" size="100,100">&lt;&lt;linkreplace &quot;Watch a movie&quot;&gt;&gt;
 &lt;&lt;if $inventory.length &gt; 0&gt;&gt;
 &lt;&lt;for _i to 0; _i lt $inventory.length; _i++&gt;&gt;
@@ -556,21 +563,22 @@ It is, in short, a signficant upgrade relative to Halifax. It&#39;s no London, o
 
 
 </tw-passagedata><tw-passagedata pid="28" name="Use item" tags="" position="1325,200" size="100,100">&lt;&lt;set $morale to $morale + $item.morale&gt;&gt;&lt;&lt;if $morale &gt; 100&gt;&gt;&lt;&lt;set $morale to 100&gt;&gt;&lt;&lt;/if&gt;&gt;&lt;&lt;print $item.use&gt;&gt;
-
+Regained &lt;&lt;print $item.morale&gt;&gt; morale!
 &lt;&lt;include Travel&gt;&gt;</tw-passagedata><tw-passagedata pid="29" name="Halifax stay" tags="" position="725,550" size="100,100">You find a two-story motel, the kind where the doors all open to the outside. The paint is peelng off the pastel pink and white walls, and the only car in the parking lot looks like it&#39;s been attacked by a hammer. 
 
 &quot;Welcome to the Grand Atlantic,&quot; says the overweight man in the cramped office, really just a converted room. &quot;So. You stayin&#39; the night or what?&quot;
 &lt;&lt;set $root to &quot;Halifax main&quot;&gt;&gt;&lt;&lt;set $hotelPrice to 40&gt;&gt;
-&lt;&lt;include &quot;Make hotel&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="30" name="Halifax travel init" tags="" position="650,1125" size="100,100">&lt;&lt;set $leg to 836&gt;&gt;
+&lt;&lt;include &quot;Make hotel&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="30" name="Halifax travel init" tags="" position="650,1125" size="100,100">&lt;&lt;silently&gt;&gt;
 &lt;&lt;set $goalDistance to $distance - $leg&gt;&gt;
 &lt;&lt;set $destinationStation to &quot;Montreal entrance&quot;&gt;&gt;
 &lt;&lt;set $food to 0&gt;&gt;
-&lt;&lt;set $friendFlag to 0&gt;&gt;
-&lt;&lt;set $friendArray to [{name: &quot;Bennett&quot;, text: &quot;Al, I&#39;m so excited that you&#39;re coming my way. The west coast is a beautiful place, and it&#39;s going to be all the more beautiful for your presence. I hope I get to show you some of that beauty, and you know, also get drunk and play video games and stuff.&quot;}, {name: &quot;test&quot;, text: &quot;test&quot;}, {name: &quot;test&quot;, text: &quot;test&quot;}, {name: &quot;test&quot;, text: &quot;test&quot;}, {name: &quot;test&quot;, text: &quot;test&quot;}, {name: &quot;test&quot;, text: &quot;test&quot;}, {name: &quot;test&quot;, text: &quot;test&quot;}, {name: &quot;test&quot;, text: &quot;test&quot;}]&gt;&gt; 
+&lt;&lt;set $friendFlag to 0&gt;&gt;&lt;&lt;/silently&gt;&gt;
 &lt;&lt;include Travel&gt;&gt;</tw-passagedata><tw-passagedata pid="31" name="Morning" tags="" position="775,325" size="100,100">&lt;&lt;silently&gt;&gt;
-&lt;&lt;set $money to $money - $hotelPrice&gt;&gt;
+	&lt;&lt;set $money to $money - $hotelPrice&gt;&gt;
+	&lt;&lt;if $newTime &lt;= $time&gt;&gt;
+		&lt;&lt;set $day++&gt;&gt;
+	&lt;&lt;/if&gt;&gt;
 	&lt;&lt;set $time to $newTime&gt;&gt;
-	&lt;&lt;set $day++&gt;&gt;
 	&lt;&lt;if $day &gt; 31&gt;&gt;
 		&lt;&lt;set $day to $day - 31&gt;&gt;
 		&lt;&lt;set $month to 2&gt;&gt;
@@ -646,15 +654,16 @@ Was that what you wanted to know? No?! Travel tips? Geez, I&#39;m just a little 
 
 The mime nods an affirmative. He holds one finger up, then points over his shoulder.
 
-&lt;div class=&quot;alText&quot;&gt;&quot;First word: behind?&quot; The mime shakes his head. &quot;Before?&quot; The mime nods. You know, you haven&#39;t done anything particularly mime-y yet. It&#39;s mostly just been charades.&quot;&lt;/div&gt;
+&lt;span class=&quot;alText&quot;&gt;&quot;First word: behind?&quot;&lt;/span&gt; The mime shakes his head. &lt;span class=&quot;alText&quot;&gt;&quot;Before?&quot;&lt;/span&gt; The mime nods. &lt;span class=&quot;alText&quot;&gt;&quot;You know, you haven&#39;t done anything particularly mime-y yet. It&#39;s mostly just been charades.&quot;&lt;/span&gt;
 
 The mime glares at you, then continues his game. Eventually, you derive a message. &quot;Before. Movies. Sad. After. Movies. Happy.&quot;
 
 &lt;div class=&quot;lyssText&quot;&gt;It&#39;s true. Movies are a great way of restoring your morale, when the rigors of travel wear it down. You can watch them while we ride. Try it, if you haven&#39;t yet.&lt;/div&gt;
 
 [[Go back|Montreal talk]]</tw-passagedata><tw-passagedata pid="42" name="Montreal station" tags="" position="1425,825" size="100,100">&lt;&lt;silently&gt;&gt;&lt;&lt;set $station to &quot;Montreal&quot;&gt;&gt;
+&lt;&lt;set $leg to 313&gt;&gt;
 &lt;&lt;set $destination to &quot;Toronto&quot;&gt;&gt;
-&lt;&lt;set $ticketPrice to 60&gt;&gt;
+&lt;&lt;set $ticketPrice to 40&gt;&gt;
 &lt;&lt;set $departureTime to 12&gt;&gt;&lt;&lt;/silently&gt;&gt;
 &lt;&lt;include &quot;Make station&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="43" name="Listen to some music" tags="" position="1850,800" size="100,100">Mm-tat-tat-mm-tat-tat-mm-bop!
 
@@ -696,7 +705,7 @@ Want anything?
 &lt;&lt;set $inventory.push($artOfArt)&gt;&gt;
 The Art of Art GET!&lt;&lt;/if&gt;&gt;
 
-You feel ideas bubble up in your mind with each new piece you experience. It is, in short, a lvely time.
+You feel ideas bubble up in your mind with each new piece you experience. It is, in short, a lovely time.
 
 [[Go back|Montreal see]]
 
@@ -779,7 +788,7 @@ Finally, your name is called, or rather, the name of the person you&#39;ve chose
 
 
 </tw-passagedata><tw-passagedata pid="49" name="Actually, we&#39;re just here to watch" tags="" position="2000,600" size="100,100">It&#39;s a comedy show, like those you&#39;ve been to in the past. Some people are pretty good, though the material swings from derivative to offensive. Others are just actively bad, either expecting great results from almost no efforts, or having spent their effort more on venting the manifold frustrations of daily existence than finding the humor in those small cruelties. One performer is actually really funny, but no one besides you seems to &quot;get&quot; her, and it&#39;s hard to be the only one laughing. Overall, you have a nice time, though the headliner never showed up.
-&lt;&lt;set $time to $time + 2&gt;&gt;&lt;&lt;set $morale to $morale +10&gt;&gt;&lt;&lt;if $money &gt; 40&gt;&gt;&lt;&lt;set $money -= 40&gt;&gt;&lt;&lt;else&gt;&gt;&lt;&lt;set $money to 0&gt;&gt;
+&lt;&lt;set $time to $time + 2&gt;&gt;&lt;&lt;set $morale to $morale +10&gt;&gt;&lt;&lt;if $money &gt; 40&gt;&gt;&lt;&lt;set $money -= 40&gt;&gt;&lt;&lt;else&gt;&gt;&lt;&lt;set $money to 0&gt;&gt;&lt;&lt;/if&gt;&gt;
 Your morale recovered a little.
 
 [[Leave the venue|Montreal see]]</tw-passagedata><tw-passagedata pid="50" name="Test 2" tags="" position="200,400" size="100,100">You did it</tw-passagedata><tw-passagedata pid="51" name="Comedy results" tags="" position="2125,725" size="100,100">You got $rightCounter out of 7 parts right!
@@ -810,7 +819,7 @@ $ &lt;&lt;print $take&gt;&gt; GET
 You nod, resisting the urge to hurl.
 
 [[Head into town|Montreal main]]
-</tw-passagedata><tw-passagedata pid="53" name="Make station" tags="" position="775,200" size="100,100">Welcome to $station Station. The train to $destination departs daily at $departureTime:00.
+</tw-passagedata><tw-passagedata pid="53" name="Make station" tags="" position="775,200" size="100,100">Welcome to $station Station. The train to $destination departs daily at $departureTime:00. It is a $leg mile journey.
 &lt;&lt;set $departStation to $station + &quot; depart&quot;&gt;&gt;&lt;&lt;set $root to $station + &quot; main&quot;&gt;&gt;
 &lt;&lt;if $lysstips1 is 0&gt;&gt;&lt;&lt;set $lysstips1 to 1&gt;&gt;&lt;div class=&quot;lyssText&quot;&gt;Are you ready? Got everything you need? If we still have time, we could stop by the shop to pick up snacks or movies for the trip. Once you buy our tickets, there&#39;ll be no going back.&lt;/div&gt;
 
@@ -818,9 +827,9 @@ You nod, resisting the urge to hurl.
 
 What would you like?
 
-&lt;&lt;if $money &gt; $ticketPrice&gt;&gt;&lt;&lt;link &quot;Buy second-class tickets&quot; $departStation&gt;&gt;&lt;&lt;set $money to $money - $ticketPrice&gt;&gt;&lt;&lt;set $class to 2&gt;&gt;&lt;&lt;set $time to $departureTime&gt;&gt;&lt;&lt;/link&gt;&gt;&lt;&lt;/if&gt;&gt;
+&lt;&lt;if $money &gt;= $ticketPrice&gt;&gt;&lt;&lt;link &quot;Buy second-class tickets&quot; $departStation&gt;&gt;&lt;&lt;set $money to $money - $ticketPrice&gt;&gt;&lt;&lt;set $class to 2&gt;&gt;&lt;&lt;set $time to $departureTime&gt;&gt;&lt;&lt;/link&gt;&gt;&lt;&lt;/if&gt;&gt;
 
-&lt;&lt;if $money &gt; ($ticketPrice * 1.5)&gt;&gt;&lt;&lt;link &quot;Buy first-class tickets&quot; $departStation&gt;&gt;&lt;&lt;set $money to $money - ($ticketPrice * 1.5)&gt;&gt;&lt;&lt;set $class to 1&gt;&gt;&lt;&lt;set $time to $departureTime&gt;&gt;&lt;&lt;/link&gt;&gt;&lt;&lt;/if&gt;&gt;
+&lt;&lt;if $money &gt;= ($ticketPrice * 1.5)&gt;&gt;&lt;&lt;link &quot;Buy first-class tickets&quot; $departStation&gt;&gt;&lt;&lt;set $money to $money - ($ticketPrice * 1.5)&gt;&gt;&lt;&lt;set $class to 1&gt;&gt;&lt;&lt;set $time to $departureTime&gt;&gt;&lt;&lt;/link&gt;&gt;&lt;&lt;/if&gt;&gt;
 
 &lt;&lt;else&gt;&gt;The train has departed for the day, come back tomorrow.&lt;&lt;/if&gt;&gt; 
 
@@ -830,10 +839,11 @@ What would you like?
 
 [[&quot;I&#39;m ready&quot;|Montreal travel init]]
 
-</tw-passagedata><tw-passagedata pid="55" name="Montreal travel init" tags="" position="1425,1125" size="100,100">&lt;&lt;set $leg to 313&gt;&gt;
+</tw-passagedata><tw-passagedata pid="55" name="Montreal travel init" tags="" position="1425,1125" size="100,100">&lt;&lt;silently&gt;&gt;
 &lt;&lt;set $destinationStation to &quot;Toronto entrance&quot;&gt;&gt;
 &lt;&lt;set $goalDistance to $distance - $leg&gt;&gt;
 &lt;&lt;set $food to 0&gt;&gt;
+&lt;&lt;set $friendFlag to 0&gt;&gt;&lt;&lt;/silently&gt;&gt;
 &lt;&lt;include Travel&gt;&gt;</tw-passagedata><tw-passagedata pid="56" name="Toronto entrance" tags="" position="2825,400" size="100,100">Toronto is the largest city in Canada, and the anchor of the Golden Horseshoe, the country&#39;s biggest urbanized area. With all those people come diversity, and Toronto has that in spades: over 160 languages are spoken in the metropolitan area. 
 
 Those people also drive business. It&#39;s a financial capital, full of highrises like the 550m high CN tower. And like Vancouver, a lot of television and film is produced here.
@@ -1033,8 +1043,9 @@ The film store has what you might call &quot;big Harrod&#39;s energy.&quot; It&#
 </tw-passagedata><tw-passagedata pid="73" name="Toronto stay" tags="" position="2700,700" size="100,100">The Grand Maple is a highrise. From street level, it seems to stretch on forever; a grid of lit windows, like god&#39;s spreadsheet. 
 &lt;&lt;set $root to &quot;Toronto main&quot;&gt;&gt;&lt;&lt;set $hotelPrice to 70&gt;&gt;
 &lt;&lt;include &quot;Make hotel&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="74" name="Toronto station" tags="" position="2850,700" size="100,100">&lt;&lt;silently&gt;&gt;&lt;&lt;set $station to &quot;Toronto&quot;&gt;&gt;
+&lt;&lt;set $leg to 941&gt;&gt;
 &lt;&lt;set $destination to &quot;Winnipeg&quot;&gt;&gt;
-&lt;&lt;set $ticketPrice to 90&gt;&gt;
+&lt;&lt;set $ticketPrice to 120&gt;&gt;
 &lt;&lt;set $departureTime to 8&gt;&gt;&lt;&lt;/silently&gt;&gt;
 &lt;&lt;include &quot;Make station&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="75" name="The one-eyed beggar" tags="" position="2375,550" size="100,100">&quot;Hey! I&#39;m no beggar! I&#39;m an entrepreneur! Right now, I&#39;m waorking on this big new startup. And our product is about to launch!&quot; He holds up a length of rope.
 &lt;&lt;set $time++&gt;&gt;
@@ -1048,7 +1059,7 @@ The film store has what you might call &quot;big Harrod&#39;s energy.&quot; It&#
 
 &lt;&lt;if visited(&quot;The guy with the big gold watch&quot;) &lt;= 1&gt;&gt;To prove my point, and keep you searching here&#39;s twenty bucks. Go Yankees!  &lt;&lt;set $money to $money + 20&gt;&gt;&lt;&lt;/if&gt;&gt;
 
-[[Go back|Toronto talk]]</tw-passagedata><tw-passagedata pid="77" name="The girl on the bike" tags="" position="2375,800" size="100,100">&quot;It&#39;s like 4,000 miles from coast to coast in Canada. That&#39;s nearly a billion! But it&#39;s not all the same. A lot of people live around here, by the Great Lakes. Personally I think they&#39;re the Stupid Lakes, because they&#39;re cold and don&#39;t have any mermaids. But further west is even stupider. There&#39;s barely anything there but snow on the ground and snow in the air. If you&#39;re heading that way, prepare for long rides. And snow.&quot;
+[[Go back|Toronto talk]]</tw-passagedata><tw-passagedata pid="77" name="The girl on the bike" tags="" position="2375,800" size="100,100">&quot;It&#39;s like 3,500 miles from coast to coast in Canada. That&#39;s nearly a billion! But it&#39;s not all the same. A lot of people live around here, by the Great Lakes. Personally I think they&#39;re the Stupid Lakes, because they&#39;re cold and don&#39;t have any mermaids. But further west is even stupider. There&#39;s barely anything there but snow on the ground and snow in the air. If you&#39;re heading that way, prepare for long rides. And snow.&quot;
 &lt;&lt;set $time ++&gt;&gt;
 [[Go back|Toronto talk]]</tw-passagedata><tw-passagedata pid="78" name="Battle 2" tags="" position="3275,1400" size="100,100">Drake frowns. &quot;Not bad. But get a load of this.&quot;
 
@@ -1091,10 +1102,11 @@ But you can&#39;t give up now!
 
 [[Try again|Battle]]</tw-passagedata><tw-passagedata pid="82" name="Toronto depart" tags="" position="2825,850" size="100,100">&lt;div class=&quot;lyssText&quot;&gt;This part of the journey is a long one. I hope you&#39;re ready to go. On the other side, I&#39;ll be visiting some conveniently un-specified acquaintances. So you&#39;ll be on your own. There&#39;s been some weird weather happening over there. I hope it doesn&#39;t delay us...All right. Let&#39;s go.&quot;&lt;/div&gt;
 &lt;&lt;set $init to 0&gt;&gt;
-[[Let&#39;s.|Toronto travel init]]</tw-passagedata><tw-passagedata pid="83" name="Toronto travel init" tags="" position="2825,1000" size="100,100">&lt;&lt;set $leg to 941&gt;&gt;
+[[Let&#39;s.|Toronto travel init]]</tw-passagedata><tw-passagedata pid="83" name="Toronto travel init" tags="" position="2825,1000" size="100,100">&lt;&lt;silently&gt;&gt;
 &lt;&lt;set $destinationStation to &quot;Winnipeg entrance&quot;&gt;&gt;
 &lt;&lt;set $goalDistance to $distance - $leg&gt;&gt;
 &lt;&lt;set $food to 0&gt;&gt;
+&lt;&lt;set $friendFlag to 0&gt;&gt;&lt;&lt;/silently&gt;&gt;
 &lt;&lt;include Travel&gt;&gt;</tw-passagedata><tw-passagedata pid="84" name="Winnipeg entrance" tags="" position="4025,425" size="100,100">Ah, Winnipeg. It&#39;s cold! I mean, it&#39;s the capital of Manitoba. It&#39;s named after the nearby lake Winnipeg, named for the Cree words muddy waters. It&#39;s got a population of about 800,000 people. 
 &lt;&lt;set $mysteryItems to []&gt;&gt;&lt;&lt;set $usedItems to []&gt;&gt;
 And it&#39;s cold! It&#39;s further inland that other place you&#39;ve been so far, and further north. This makes it more seasonal, getting warmer in the summer, and colder in the winter, as cold as -21C. 
@@ -1166,6 +1178,8 @@ Location list
 
 [[The teen playing a game on her phone]]
 
+[[The wizened old man]]
+
 [[Go back|Winnipeg main]]</tw-passagedata><tw-passagedata pid="88" name="Winnipeg shop" tags="" position="3925,725" size="100,100">&lt;&lt;silently&gt;&gt;
 &lt;&lt;set $shopArray to [$frozen, $iceAge, $batman, $cool]&gt;&gt;
 &lt;&lt;set $root to &quot;Winnipeg main&quot;&gt;&gt;
@@ -1181,8 +1195,9 @@ The snow, the weather report on your phone tells you, hasn&#39;t stopped for wee
 [[Do this later|Winnipeg main]]</tw-passagedata><tw-passagedata pid="90" name="Winnipeg stay" tags="" position="4225,725" size="100,100">The Literally an Igloo is nothing but up front. You have to dip to get through the domed building&#39;s arched entranceway, but inside, it&#39;s surprisingly toasty. 
 &lt;&lt;set $root to &quot;Winnipeg main&quot;&gt;&gt;&lt;&lt;set $hotelPrice to 40&gt;&gt;
 &lt;&lt;include &quot;Make hotel&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="91" name="Winnipeg station" tags="" position="4075,725" size="100,100">&lt;&lt;silently&gt;&gt;&lt;&lt;set $station to &quot;Winnipeg&quot;&gt;&gt;
+&lt;&lt;set $leg to 923&gt;&gt;
 &lt;&lt;set $destination to &quot;Jasper&quot;&gt;&gt;
-&lt;&lt;set $ticketPrice to 40&gt;&gt;
+&lt;&lt;set $ticketPrice to 120&gt;&gt;
 &lt;&lt;set $departureTime to 14&gt;&gt;&lt;&lt;/silently&gt;&gt;
 &lt;&lt;include &quot;Make station&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="92" name="Town square" tags="" position="4450,875" size="100,100">The snow gets heavier in this cute suburb on the edge of the city. Here, things are sparser, with plenty of room between independent houses, rather than crammed together like they are downtown. 
 &lt;&lt;set $time++&gt;&gt;
@@ -1202,7 +1217,7 @@ Go somewhere?
 [[Stop investigating for now|Winnipeg main]]
 
 </tw-passagedata><tw-passagedata pid="93" name="The butcher" tags="" position="4300,1025" size="100,100">The butcher sits behind his counter in a clean white apron, absent-mindedly sharpening a knife. He perks up when you enter. 
-
+&lt;&lt;set $time++&gt;&gt;
 &quot;What can I do for you? We haven&#39;t much in stock right now, ever since that strange little man, his name began with a C, I&#39;m pretty sure, bought up almost everything I had. Heven&#39;t been able to get stuff in since, because the snows started that day. 
 
 &lt;&lt;if !$mysteryItems.includes(&quot;steak&quot;) &amp;&amp; !$usedItems.includes(&quot;steak&quot;)&gt;&gt;I&#39;ve just got the one steak left in stock. I&#39;ll sell it to you for a tenner.
@@ -1268,7 +1283,7 @@ The wind drops, so suddenly that you stumble forward. Falling onto your hands an
 &lt;&lt;/if&gt;&gt;
 
 [[Go back|The trail]]</tw-passagedata><tw-passagedata pid="97" name="The woodcutter&#39;s" tags="" position="4525,1175" size="100,100">&lt;&lt;if!$mysteryItems.includes(&quot;super fancy coat&quot;) &amp;&amp; !$usedItems.includes(&quot;super fancy coat&quot;)&gt;&gt;The woodcutter sits in his unlit cabin, staring at his calloused hands. &quot;My axe. He stole my axe. He stole my axe and scrawled strange symbols all over it.  That strange man...something ending with &#39;on&#39;.&quot;
-
+&lt;&lt;set $time++&gt;&gt;
 He finally notices you and turns. You can see him better now, and he&#39;s everything you&#39;d expect: bearded and muscular, with a physique emphasized by the heavy winter coat hanging off his shoulders. 
 
 &quot;Oh!&quot; he says, noticing you. &quot;Hello. Do you...happen to have an axe? No? Or even the pieces of one? A blade and some sort of wood for a handle? I need one to work. I&#39;d trade anything for it, even my super fancy coat.
@@ -1306,7 +1321,7 @@ Do you have a handle
 &lt;&lt;/linkreplace&gt;&gt;
 
 [[Go back|The trail]]</tw-passagedata><tw-passagedata pid="99" name="Wizard&#39;s lair" tags="" position="4775,1325" size="100,100">The flame easily melts the ice, allowing you to proceed deeper into the cavern. The sounds of chanting echo up through the winding cavern. You try not to slip on the rough terrain or the icy condensation as you rush toward what you hope will be this adventure&#39;s conclusion. 
-
+&lt;&lt;set $time++&gt;&gt;
 At the bottom, you enter a perfectly square chamber. The floor is covered in carved runes, and at the center, a bearded man in blue robes is chanting in words that sound like you&#39;ve never heard before. 
 
 The man rouses. &quot;So. You&#39;ve come. Come to stop my infinite blizzard!&quot; He laughs, which devolves into weezing gasps. &quot;I just wanted community! Devoid of gawking, idiotic tourists! A place where everyone knows your name.&quot;
@@ -1320,7 +1335,7 @@ You take a breath, thinking about all you&#39;ve learned during your investigati
 [[Craigdon|Wizard success]]
 [[David|Wizard fail]]</tw-passagedata><tw-passagedata pid="100" name="The graveyard" tags="" position="4900,1175" size="100,100">&lt;&lt;if $mysteryItems.includes(&quot;shovel blade&quot;)&gt;&gt;Can&#39;t help you without a shovel. Sorry.
 
-&lt;&lt;else&gt;&gt;A hunchbacked gravekeeper marched between the headstones. Once he notices you, he wanders in your direction, thought it takes him minutes to reach you at his plodding speed. 
+&lt;&lt;else&gt;&gt;A hunchbacked gravekeeper marched between the headstones. Once he notices you, he wanders in your direction, though it takes him minutes to reach you at his plodding speed. 
 
 &quot;What can I do for you?&quot; he asks. &quot;As a gravedigger, I can dig up random graves and give you anything you find. Not much else to do out here, whatwith the snows. I keep expecting to bury that old man who lives nearby. I don&#39;t remember what he&#39;s called, but the third to last letter of his name is a D. Huh? Why&#39;s that the only thing I remember about him? None of your business!
 
@@ -1332,7 +1347,7 @@ So, do you want me to dig up some bodies?
 &lt;&lt;/link&gt;&gt;
 
 &lt;div id=&quot;digging&quot;&gt;&lt;/div&gt;&lt;&lt;/if&gt;&gt;
-
+&lt;&lt;set $time++&gt;&gt;
 [[Go back|The trail]]</tw-passagedata><tw-passagedata pid="101" name="Woodcutter 2" tags="" position="4500,1325" size="100,100">Do you have a blade?
 
 &lt;&lt;for _i to 0; _i lt $mysteryItems.length; _i++&gt;&gt;
@@ -1389,10 +1404,11 @@ Alyssa lays her head on your shoulder. &lt;div class=&quot;lyssText&quot;&gt;&qu
 &lt;&lt;set $init to 0&gt;&gt;
 You absent-mindedly agree, and let the smooth motion of the train pull you ever further west. 
 
-[[Let&#39;s go|Winnipeg travel init]]</tw-passagedata><tw-passagedata pid="109" name="Winnipeg travel init" tags="" position="4075,1000" size="100,100">&lt;&lt;set $leg to 923&gt;&gt;
+[[Let&#39;s go|Winnipeg travel init]]</tw-passagedata><tw-passagedata pid="109" name="Winnipeg travel init" tags="" position="4075,1000" size="100,100">&lt;&lt;silently&gt;&gt;
 &lt;&lt;set $destinationStation to &quot;Jasper entrance&quot;&gt;&gt;
 &lt;&lt;set $goalDistance to $distance - $leg&gt;&gt;
 &lt;&lt;set $food to 0&gt;&gt;
+&lt;&lt;set $friendFlag to 0&gt;&gt;&lt;&lt;/silently&gt;&gt;
 &lt;&lt;include Travel&gt;&gt;</tw-passagedata><tw-passagedata pid="110" name="Jasper entrance" tags="" position="5325,425" size="100,100">Jasper national park is known for it&#39;s abundant wildlife, crystal-clear lakes, waterfalls, canyons and forests. It&#39;s a UNESCO world heritage site, which is pretty fun. 
 
 Somewhere in there is the town of Jasper, where you&#39;ve just pulled in. Once a fur trading town, it&#39;s morphed organically into a ski resort. Filled with tourists and staffed by attractive young people on commonwealth visas. It has a certain alpine aesthetic, cute shops, and provides easy access to the Marmot Basin Ski Resort. 
@@ -1449,8 +1465,9 @@ Seeing your face contort, Alyssa tries to hold you back, but it&#39;s too late. 
 [[Hit the slopes]]</tw-passagedata><tw-passagedata pid="115" name="Jasper stay" tags="" position="5475,725" size="100,100">The Warm Hearth Inn is a tall, germanic styled hostel in the middle of town. You&#39;re getting to the end of your hostel-staying years, and the noise of college kids on their year abroad is already promising an unrestful evening. But hey, the place is cheap, looks comfy, and the website promised limitless tea. So could be a lot worse. 
 &lt;&lt;set $root to &quot;Jasper main&quot;&gt;&gt;&lt;&lt;set $hotelPrice to 20&gt;&gt;
 &lt;&lt;include &quot;Make hotel&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="116" name="Jasper station" tags="" position="5625,725" size="100,100">&lt;&lt;silently&gt;&gt;&lt;&lt;set $station to &quot;Jasper&quot;&gt;&gt;
+&lt;&lt;set $leg to 179&gt;&gt;
 &lt;&lt;set $destination to &quot;Kamloops&quot;&gt;&gt;
-&lt;&lt;set $ticketPrice to 80&gt;&gt;
+&lt;&lt;set $ticketPrice to 20&gt;&gt;
 &lt;&lt;set $departureTime to 9&gt;&gt;&lt;&lt;/silently&gt;&gt;
 &lt;&lt;include &quot;Make station&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="117" name="Snowboard event" tags="" position="1150,75" size="100,100">After the initial event, we&#39;ll provide a bunch of different slopes of different difficulties and lengths. 
 
@@ -1517,7 +1534,7 @@ You completed $name! Earned $conEarned confidence and spent $timeSpent hours!
 
 [[More boarding!|Pick a slope]]&lt;&lt;else&gt;&gt;&quot;Ha!,&quot; says the snooty skiier. &quot;I saw you fall! I knew you couldn&#39;t do it! Try again...in a million years maybe!
 
-[[Do another run|Pick a slope]]
+&lt;&lt;if $time &gt; 18||$time &lt; 8&gt;&gt;The slopes have closed for the day.&lt;&lt;else&gt;&gt;[[Do another run|Pick a slope]]&lt;&lt;/if&gt;&gt;
 
 [[Finish for now|Jasper main]]&lt;&lt;/if&gt;&gt;
 
@@ -1527,10 +1544,11 @@ You completed $name! Earned $conEarned confidence and spent $timeSpent hours!
 &lt;&lt;set $init to 0&gt;&gt;
 Almost there, you think. Almost there.
 
-[[Ever onward|Jasper travel init]]</tw-passagedata><tw-passagedata pid="125" name="Jasper travel init" tags="" position="5625,1050" size="100,100">&lt;&lt;set $leg to 179&gt;&gt;
+[[Ever onward|Jasper travel init]]</tw-passagedata><tw-passagedata pid="125" name="Jasper travel init" tags="" position="5625,1050" size="100,100">&lt;&lt;silently&gt;&gt;
 &lt;&lt;set $destinationStation to &quot;Kamloops entrance&quot;&gt;&gt;
 &lt;&lt;set $goalDistance to $distance - $leg&gt;&gt;
 &lt;&lt;set $food to 0&gt;&gt;
+&lt;&lt;set $friendFlag to 0&gt;&gt;&lt;&lt;/silently&gt;&gt;
 &lt;&lt;include Travel&gt;&gt;</tw-passagedata><tw-passagedata pid="126" name="Jasper shop 2" tags="" position="5175,850" size="100,100">You take the movie, clutch it to your chest and exit the room. Outside, you close the door, and exit the alley. As you step back onto the sidewalk, there&#39;s another flash of light, and you turn to see that the door is gone, with only a brick wall remaining. But the movie clutched in your hands remains. 
 
 [[Go back|Jasper main]]</tw-passagedata><tw-passagedata pid="127" name="Kamloops entrance" tags="" position="6300,425" size="100,100">By the time you pull into Kamloops station, you&#39;ve entered British Columbia, the province that Vancouver is in. Kamloops is a decent sized town nestled between two branches of the Thompson River. And it&#39;s the first city in BC to become a bee city, whatever that means. 
@@ -1572,17 +1590,19 @@ That energy of competition infuses the town, with bunting in red and yellow hang
 [[Go back|Kamloops main]]</tw-passagedata><tw-passagedata pid="132" name="Kamloops stay" tags="" position="6450,725" size="100,100">The Ultimate Challenger is a tall, modern hotel. The people leaving and entering are intimidatingly attractive, and dressed nicely enough that the door man gives you a skeptical look as you slide past him and inside. But here&#39;s the trick: a lot of athletes don&#39;t have any money, and the prices here reflect that, though the amenities, like everything else in Kamloops, are top tier. If you can handle the feelings of inferiority, you&#39;ll have a comfortable night. 
 &lt;&lt;set $root to &quot;Kamloops main&quot;&gt;&gt;&lt;&lt;set $hotelPrice to 30&gt;&gt;
 &lt;&lt;include &quot;Make hotel&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="133" name="Kamloops station" tags="" position="6600,725" size="100,100">&lt;&lt;silently&gt;&gt;&lt;&lt;set $station to &quot;Kamloops&quot;&gt;&gt;
+&lt;&lt;set $leg to 157&gt;&gt;
 &lt;&lt;set $destination to &quot;Vancouver&quot;&gt;&gt;
-&lt;&lt;set $ticketPrice to 200&gt;&gt;
+&lt;&lt;set $ticketPrice to 100&gt;&gt;
 &lt;&lt;set $departureTime to 22&gt;&gt;&lt;&lt;/silently&gt;&gt;
 &lt;&lt;include &quot;Make station&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="134" name="Kamloops depart" tags="" position="6600,850" size="100,100">That was it. The last stop before Vancouver. Your new home. A lot goes through your head as the train sets off. A new world, basically, will soon be yours to explore. It makes you nervous. Of course it does. But it&#39;s also exciting. 
 &lt;&lt;set $init to 0&gt;&gt;
 &lt;div class=&quot;lyssText&quot;&gt;&quot;One more ride.&quot;&lt;/div&gt;
 
-[[Let&#39;s go|Kamloops travel init]]</tw-passagedata><tw-passagedata pid="135" name="Kamloops travel init" tags="" position="6600,1000" size="100,100">&lt;&lt;set $leg to 157&gt;&gt;
+[[Let&#39;s go|Kamloops travel init]]</tw-passagedata><tw-passagedata pid="135" name="Kamloops travel init" tags="" position="6600,1000" size="100,100">&lt;&lt;silently&gt;&gt;
 &lt;&lt;set $destinationStation to &quot;Vancouver entrance&quot;&gt;&gt;
 &lt;&lt;set $goalDistance to $distance - $leg&gt;&gt;
 &lt;&lt;set $food to 0&gt;&gt;
+&lt;&lt;set $friendFlag to 0&gt;&gt;&lt;&lt;/silently&gt;&gt;
 &lt;&lt;include Travel&gt;&gt;</tw-passagedata><tw-passagedata pid="136" name="Vancouver entrance" tags="" position="7075,425" size="100,100">The train rolls into Vancouver. Your final stop. You hesitate as you step off the train, and not only because of the drop between the train and the platform. 
 
 Vancouver is the largest in city in British Columbia. It&#39;s metropolitan and multicultural, with large immigrant and minority populations. It has a bustling economy, a large port, and good food. It&#39;s close to Whistler, one of the best ski resorts in the country, if not the world, as well as a number of trails for biking and hikes. 
@@ -1602,7 +1622,7 @@ Vancouver is the largest in city in British Columbia. It&#39;s metropolitan and 
 &quot;What&#39;s that? You say most of the world isn&#39;t obsessed with tournaments? That&#39;s good. Good indeed. I bet I could crush them! Muahahaha!&quot;
 
 [[Go back|Kamloops talk]]</tw-passagedata><tw-passagedata pid="140" name="Work the games" tags="" position="6225,875" size="100,100">There a lot that needs to be done at any competition: ticket takers, vendors, refs, ball boys. You easily find work for the day, and busily spend it hustling like a hustler do. 
-&lt;&lt;set $money to $money + ((17 - $time) * 10&gt;&gt;
+&lt;&lt;set $money to $money + ((17 - $time) * 10)&gt;&gt;&lt;&lt;set $time to 17&gt;&gt;
 Gained $ 10 for every hour worked. 
 
 As games for the day conclude, you leave the stadium. You can always come back tomorrow. 
@@ -1658,7 +1678,16 @@ We&#39;ll also declare $eventArray, filled with objects detailing events. Shuffl
 
 Then, if $distance is less than $eventSpot, remove the first item from $eventArray and set it to $event. Then, go to a passage called &quot;Event&quot;. 
 
-Fill event with data from the event object. After making a choice, show the consequences, then send player back to travel. </tw-passagedata><tw-passagedata pid="144" name="Food" tags="" position="1725,50" size="100,100">Buying food should be another way to increase morale on the train, but be more expensive than movies. Maybe it can provide other effects as well, such as clearing weather. 
+Fill event with data from the event object. After making a choice, show the consequences, then send player back to travel. 
+
+I&#39;m going to make like 10 12 events at most. In that case, I can put each in its own passage, that&#39;s fine. 
+
+One event is someone drops money, take cash or morale for giving it back
+
+ANother is your at a fair after a stop, hurry back to the station or hang around, in which case you lose a day
+
+The train breaks down. Spend your day either working for money or having fun
+</tw-passagedata><tw-passagedata pid="144" name="Food" tags="" position="1725,50" size="100,100">Buying food should be another way to increase morale on the train, but be more expensive than movies. Maybe it can provide other effects as well, such as clearing weather. 
 
 It&#39;ll be accessed via the do something menu. We&#39;ll explain things the first time we visit via a lyssText. 
 
@@ -1697,8 +1726,8 @@ Before:
 
 &lt;&lt;if $morale &lt; 20 &amp;&amp; $friendFlag == 0&gt;&gt;
 	&lt;&lt;set $friendFlag to 1&gt;&gt;
-	&lt;&lt;if $friendArray.length &gt; random(0, 8)&gt;&gt;
-		&lt;&lt;stop&gt;&gt;&lt;&lt;goto &quot;Receive call&gt;&gt;
+	&lt;&lt;if visited(&quot;Receive call&quot;) == 0 || random(0, 1) == 1&gt;&gt;
+		&lt;&lt;goto &quot;Receive call&gt;&gt;&lt;&lt;stop&gt;&gt;
 	&lt;&lt;/if&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
@@ -1724,7 +1753,7 @@ Thanks so much! Happy Holidays and all my love!</tw-passagedata><tw-passagedata 
 &quot;&lt;&lt;print $friendArray[0].text&gt;&gt;&quot;
 &lt;&lt;set $morale += 20&gt;&gt;
 Your morale is restored by 20!
-&lt;&lt;set $friendArray.delete(0)&gt;&gt;
+&lt;&lt;set $friendArray.deleteAt(0)&gt;&gt;
 [[Travel onward!|Travel]]</tw-passagedata><tw-passagedata pid="150" name="I&#39;m happy" tags="" position="7000,575" size="100,100">&lt;div class=&quot;alText&quot;&gt;We actually did it. With limited time, meager resources and significant obstacles, we crossed the country. It&#39;s a big accomplishment. I&#39;m proud of us.&lt;/div&gt; 
 
 &lt;div class=&quot;lyssText&quot;&gt;Me too.&lt;/div&gt;
@@ -1746,9 +1775,19 @@ You walk further and arrive at the place you&#39;ll be staying until you estbali
 ...is only the beginning.</tw-passagedata><tw-passagedata pid="152" name="Completionist list" tags="" position="2000,50" size="100,100">After the end, you should be able to say, &quot;How did I do?&quot; and it&#39;ll show you a list of optional objectives. I&#39;m thinking 
 - Learn the dining car man&#39;s secret. 
 - Beat the game on hard mode
-- complete the game with more than $250 left
 - Collect all the movies
-</tw-passagedata></tw-storydata></div>
+
+
+How would this work
+</tw-passagedata><tw-passagedata pid="153" name="The wizened old man" tags="" position="3775,500" size="100,100">&quot;Do you ever look at the top of your screen--I mean, your clock--and think, &#39;That time&#39;s not right?&#39; Well, it&#39;s okay. The header--I mean clock, obviously--only updates when you move to a new area. Which means sometimes it might be a little bit later than you think.
+&lt;&lt;set $time++&gt;&gt;
+&quot;Sorry about that. It&#39;s just really complicated to do it any other way. So if you think the time is optimisitc, or if you&#39;re seeing some wacky numbers, just move on, and everything will sort itself out.
+
+&quot;What? You say it&#39;s not that easy? You have trains to catch? Well, be careful then!&quot;
+
+[[Go back|Winnipeg talk]]</tw-passagedata><tw-passagedata pid="154" name="Variable declaration redistribution" tags="" position="2150,75" size="100,100">I&#39;d love to let players try again after completing or failing a run, but right now, doing so would fuck everything up. 
+
+The static variables can stay where they are, that&#39;s pretty much just the movies. Other things need to be assigned when you start a run. That&#39;s the inventory, the waiter and friend arrays, and the basic stats. Other things are assigned as they come up which should be fine</tw-passagedata></tw-storydata></div>
 	<script id="script-sugarcube" type="text/javascript">
 	/*! SugarCube JS */
 	if(document.documentElement.getAttribute("data-init")==="loading"){!function(window,document,jQuery,undefined){"use strict";function _classCallCheck(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}function _toConsumableArray(e){if(Array.isArray(e)){for(var t=0,r=Array(e.length);t<e.length;t++)r[t]=e[t];return r}return Array.from(e)}var _createClass=function(){function e(e,t){for(var r=0;r<t.length;r++){var n=t[r];n.enumerable=n.enumerable||!1,n.configurable=!0,"value"in n&&(n.writable=!0),Object.defineProperty(e,n.key,n)}}return function(t,r,n){return r&&e(t.prototype,r),n&&e(t,n),t}}(),_slicedToArray=function(){function e(e,t){var r=[],n=!0,a=!1,i=undefined;try{for(var o,s=e[Symbol.iterator]();!(n=(o=s.next()).done)&&(r.push(o.value),!t||r.length!==t);n=!0);}catch(e){a=!0,i=e}finally{try{!n&&s.return&&s.return()}finally{if(a)throw i}}return r}return function(t,r){if(Array.isArray(t))return t;if(Symbol.iterator in Object(t))return e(t,r);throw new TypeError("Invalid attempt to destructure non-iterable instance")}}(),_typeof="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e},Alert=function(){function e(e,t,r,n){var a="fatal"===e,i="Apologies! "+(a?"A fatal":"An")+" error has occurred.";i+=a?" Aborting.":" You may be able to continue, but some parts may not work properly.",null==t&&null==r||(i+="\n\nError",null!=t&&(i+=" ["+t+"]"),i+=null!=r?": "+r.replace(/^(?:(?:uncaught\s+(?:exception:\s+)?)?error:\s+)+/i,"")+".":": unknown error."),"object"===("undefined"==typeof n?"undefined":_typeof(n))&&n.stack&&(i+="\n\nStack Trace:\n"+n.stack),window.alert(i)}function t(t,r,n){e(null,t,r,n)}function r(t,r,n){e("fatal",t,r,n)}return function(e){window.onerror=function(n,a,i,o,s){"complete"===document.readyState?t(null,n,s):(r(null,n,s),window.onerror=e,"function"==typeof window.onerror&&window.onerror.apply(this,arguments))}}(window.onerror),Object.freeze(Object.defineProperties({},{error:{value:t},fatal:{value:r}}))}();!function(){function e(e,t){var a=String(e);switch(t){case"start":return a&&r.test(a)?a.replace(r,""):a;case"end":return a&&n.test(a)?a.replace(n,""):a;default:throw new Error('_trimFrom called with incorrect where parameter value: "'+t+'"')}}function t(e,t){var r=Number.parseInt(e,10)||0;if(r<1)return"";var n="undefined"==typeof t?"":String(t);for(""===n&&(n=" ");n.length<r;){var a=n.length,i=r-a;n+=a>i?n.slice(0,i):n}return n.length>r&&(n=n.slice(0,r)),n}var r=/^[\s\u00A0\uFEFF][\s\u00A0\uFEFF]*/,n=/[\s\u00A0\uFEFF][\s\u00A0\uFEFF]*$/;Array.prototype.includes||Object.defineProperty(Array.prototype,"includes",{configurable:!0,writable:!0,value:function(){if(null==this)throw new TypeError("Array.prototype.includes called on null or undefined");if(0===arguments.length)return!1;var e=this.length>>>0;if(0===e)return!1;var t=arguments[0],r=Number(arguments[1])||0;for(r<0&&(r=Math.max(0,e+r));r<e;++r){var n=this[r];if(t===n||t!==t&&n!==n)return!0}return!1}}),String.prototype.padStart||Object.defineProperty(String.prototype,"padStart",{configurable:!0,writable:!0,value:function(e,r){if(null==this)throw new TypeError("String.prototype.padStart called on null or undefined");var n=String(this),a=n.length,i=Number.parseInt(e,10);return i<=a?n:t(i-a,r)+n}}),String.prototype.padEnd||Object.defineProperty(String.prototype,"padEnd",{configurable:!0,writable:!0,value:function(e,r){if(null==this)throw new TypeError("String.prototype.padEnd called on null or undefined");var n=String(this),a=n.length,i=Number.parseInt(e,10);return i<=a?n:n+t(i-a,r)}}),String.prototype.trimStart||Object.defineProperty(String.prototype,"trimStart",{configurable:!0,writable:!0,value:function(){if(null==this)throw new TypeError("String.prototype.trimStart called on null or undefined");return e(this,"start")}}),String.prototype.trimLeft||Object.defineProperty(String.prototype,"trimLeft",{configurable:!0,writable:!0,value:function(){if(null==this)throw new TypeError("String.prototype.trimLeft called on null or undefined");return e(this,"start")}}),String.prototype.trimEnd||Object.defineProperty(String.prototype,"trimEnd",{configurable:!0,writable:!0,value:function(){if(null==this)throw new TypeError("String.prototype.trimEnd called on null or undefined");return e(this,"end")}}),String.prototype.trimRight||Object.defineProperty(String.prototype,"trimRight",{configurable:!0,writable:!0,value:function(){if(null==this)throw new TypeError("String.prototype.trimRight called on null or undefined");return e(this,"end")}})}(),function(){function _random(){var e=void 0,t=void 0;switch(arguments.length){case 0:throw new Error("_random called with insufficient parameters");case 1:e=0,t=arguments[0];break;default:e=arguments[0],t=arguments[1]}if(e>t){var r=[t,e];e=r[0],t=r[1]}return Math.floor(_nativeMathRandom()*(t-e+1))+e}function _randomIndex(e,t){var r=void 0,n=void 0;switch(t.length){case 1:r=0,n=e-1;break;case 2:r=0,n=Math.trunc(t[1]);break;default:r=Math.trunc(t[1]),n=Math.trunc(t[2])}return Number.isNaN(r)?r=0:!Number.isFinite(r)||r>=e?r=e-1:r<0&&(r=e+r,r<0&&(r=0)),Number.isNaN(n)?n=0:!Number.isFinite(n)||n>=e?n=e-1:n<0&&(n=e+n,n<0&&(n=e-1)),_random(r,n)}function _getCodePointStartAndEnd(e,t){var r=e.charCodeAt(t);if(Number.isNaN(r))return{char:"",start:-1,end:-1};if(r<55296||r>57343)return{char:e.charAt(t),start:t,end:t};if(r>=55296&&r<=56319){var n=t+1;if(n>=e.length)throw new Error("high surrogate without trailing low surrogate");var a=e.charCodeAt(n);if(a<56320||a>57343)throw new Error("high surrogate without trailing low surrogate");return{char:e.charAt(t)+e.charAt(n),start:t,end:n}}if(0===t)throw new Error("low surrogate without leading high surrogate");var i=t-1,o=e.charCodeAt(i);if(o<55296||o>56319)throw new Error("low surrogate without leading high surrogate");return{char:e.charAt(i)+e.charAt(t),start:i,end:t}}var _nativeMathRandom=Math.random;Object.defineProperty(Array,"random",{configurable:!0,writable:!0,value:function(e){if(null==e||"object"!==("undefined"==typeof e?"undefined":_typeof(e))||!Object.prototype.hasOwnProperty.call(e,"length"))throw new TypeError("Array.random array parameter must be an array or array-lke object");var t=e.length>>>0;if(0!==t){var r=0===arguments.length?_random(0,t-1):_randomIndex(t,Array.prototype.slice.call(arguments,1));return e[r]}}}),Object.defineProperty(Array.prototype,"concatUnique",{configurable:!0,writable:!0,value:function e(){if(null==this)throw new TypeError("Array.prototype.concatUnique called on null or undefined");var t=Array.from(this);if(0===arguments.length)return t;var r=Array.prototype.reduce.call(arguments,function(e,t){return e.concat(t)},[]),n=r.length;if(0===n)return t;for(var a=Array.prototype.indexOf,i=Array.prototype.push,o=0;o<n;++o){var e=r[o];a.call(t,e)===-1&&i.call(t,e)}return t}}),Object.defineProperty(Array.prototype,"count",{configurable:!0,writable:!0,value:function(){if(null==this)throw new TypeError("Array.prototype.count called on null or undefined");for(var e=Array.prototype.indexOf,t=arguments[0],r=Number(arguments[1])||0,n=0;(r=e.call(this,t,r))!==-1;)++n,++r;return n}}),Object.defineProperty(Array.prototype,"delete",{configurable:!0,writable:!0,value:function(){if(null==this)throw new TypeError("Array.prototype.delete called on null or undefined");if(0===arguments.length)return[];var e=this.length>>>0;if(0===e)return[];for(var t=Array.prototype.indexOf,r=Array.prototype.push,n=Array.prototype.splice,a=Array.prototype.concat.apply([],arguments),i=[],o=0,s=a.length;o<s;++o)for(var u=a[o],l=0;(l=t.call(this,u,l))!==-1;)r.apply(i,n.call(this,l,1));return i}}),Object.defineProperty(Array.prototype,"deleteAt",{configurable:!0,writable:!0,value:function(){if(null==this)throw new TypeError("Array.prototype.deleteAt called on null or undefined");if(0===arguments.length)return[];var e=this.length>>>0;if(0===e)return[];for(var t=Array.prototype.splice,r=[].concat(_toConsumableArray(new Set(Array.prototype.concat.apply([],arguments).map(function(t){return t<0?Math.max(0,e+t):t})).values())),n=[].concat(_toConsumableArray(r)).sort(function(e,t){return t-e}),a=[],i=0,o=r.length;i<o;++i)a[i]=this[r[i]];for(var s=0,u=n.length;s<u;++s)t.call(this,n[s],1);return a}}),Object.defineProperty(Array.prototype,"flatten",{configurable:!0,writable:!0,value:function(){if(null==this)throw new TypeError("Array.prototype.flatten called on null or undefined");return Array.prototype.reduce.call(this,function(e,t){return e.concat(Array.isArray(t)?t.flatten():t)},[])}}),Object.defineProperty(Array.prototype,"includesAll",{configurable:!0,writable:!0,value:function(){if(null==this)throw new TypeError("Array.prototype.includesAll called on null or undefined");if(1===arguments.length)return Array.isArray(arguments[0])?Array.prototype.includesAll.apply(this,arguments[0]):Array.prototype.includes.apply(this,arguments);for(var e=0,t=arguments.length;e<t;++e)if(!Array.prototype.some.call(this,function(e){return e===this.val||e!==e&&this.val!==this.val},{val:arguments[e]}))return!1;return!0}}),Object.defineProperty(Array.prototype,"includesAny",{configurable:!0,writable:!0,value:function(){if(null==this)throw new TypeError("Array.prototype.includesAny called on null or undefined");if(1===arguments.length)return Array.isArray(arguments[0])?Array.prototype.includesAny.apply(this,arguments[0]):Array.prototype.includes.apply(this,arguments);for(var e=0,t=arguments.length;e<t;++e)if(Array.prototype.some.call(this,function(e){return e===this.val||e!==e&&this.val!==this.val},{val:arguments[e]}))return!0;return!1}}),Object.defineProperty(Array.prototype,"pluck",{configurable:!0,writable:!0,value:function(){if(null==this)throw new TypeError("Array.prototype.pluck called on null or undefined");var e=this.length>>>0;if(0!==e){var t=0===arguments.length?_random(0,e-1):_randomIndex(e,[].concat(Array.prototype.slice.call(arguments)));return Array.prototype.splice.call(this,t,1)[0]}}}),Object.defineProperty(Array.prototype,"pluckMany",{configurable:!0,writable:!0,value:function(e){if(null==this)throw new TypeError("Array.prototype.pluckMany called on null or undefined");var t=this.length>>>0;if(0===t)return[];var r=Math.trunc(e);if(!Number.isInteger(r))throw new Error("Array.prototype.pluckMany want parameter must be an integer");if(r<1)return[];r>t&&(r=t);var n=Array.prototype.splice,a=[],i=t-1;do a.push(n.call(this,_random(0,i--),1)[0]);while(a.length<r);return a}}),Object.defineProperty(Array.prototype,"pushUnique",{configurable:!0,writable:!0,value:function e(){if(null==this)throw new TypeError("Array.prototype.pushUnique called on null or undefined");var t=arguments.length;if(0===t)return this.length>>>0;for(var r=Array.prototype.indexOf,n=Array.prototype.push,a=0;a<t;++a){var e=arguments[a];r.call(this,e)===-1&&n.call(this,e)}return this.length>>>0}}),Object.defineProperty(Array.prototype,"random",{configurable:!0,writable:!0,value:function(){if(null==this)throw new TypeError("Array.prototype.random called on null or undefined");var e=this.length>>>0;if(0!==e){var t=0===arguments.length?_random(0,e-1):_randomIndex(e,[].concat(Array.prototype.slice.call(arguments)));return this[t]}}}),Object.defineProperty(Array.prototype,"randomMany",{configurable:!0,writable:!0,value:function(e){if(null==this)throw new TypeError("Array.prototype.randomMany called on null or undefined");var t=this.length>>>0;if(0===t)return[];var r=Math.trunc(e);if(!Number.isInteger(r))throw new Error("Array.prototype.randomMany want parameter must be an integer");if(r<1)return[];r>t&&(r=t);var n=new Map,a=[],i=t-1;do{var o=void 0;do o=_random(0,i);while(n.has(o));n.set(o,!0),a.push(this[o])}while(a.length<r);return a}}),Object.defineProperty(Array.prototype,"shuffle",{configurable:!0,writable:!0,value:function(){if(null==this)throw new TypeError("Array.prototype.shuffle called on null or undefined");var e=this.length>>>0;if(0===e)return this;for(var t=e-1;t>0;--t){var r=Math.floor(_nativeMathRandom()*(t+1));if(t!==r){var n=this[t];this[t]=this[r],this[r]=n}}return this}}),Object.defineProperty(Array.prototype,"unshiftUnique",{configurable:!0,writable:!0,value:function e(){if(null==this)throw new TypeError("Array.prototype.unshiftUnique called on null or undefined");var t=arguments.length;if(0===t)return this.length>>>0;for(var r=Array.prototype.indexOf,n=Array.prototype.unshift,a=0;a<t;++a){var e=arguments[a];r.call(this,e)===-1&&n.call(this,e)}return this.length>>>0}}),Object.defineProperty(Function.prototype,"partial",{configurable:!0,writable:!0,value:function(){if(null==this)throw new TypeError("Function.prototype.partial called on null or undefined");var e=Array.prototype.slice,t=this,r=e.call(arguments,0);return function(){for(var n=[],a=0,i=0;i<r.length;++i)n.push(r[i]===undefined?arguments[a++]:r[i]);return t.apply(this,n.concat(e.call(arguments,a)))}}}),Object.defineProperty(Math,"clamp",{configurable:!0,writable:!0,value:function e(t,r,n){var e=Number(t);return Number.isNaN(e)?NaN:e.clamp(r,n)}}),Object.defineProperty(Math,"easeInOut",{configurable:!0,writable:!0,value:function(e){return 1-(Math.cos(Number(e)*Math.PI)+1)/2}}),Object.defineProperty(Number.prototype,"clamp",{configurable:!0,writable:!0,value:function(){if(null==this)throw new TypeError("Number.prototype.clamp called on null or undefined");if(2!==arguments.length)throw new Error("Number.prototype.clamp called with an incorrect number of parameters");var e=Number(arguments[0]),t=Number(arguments[1]);if(e>t){var r=[t,e];e=r[0],t=r[1]}return Math.min(Math.max(this,e),t)}}),RegExp.escape||!function(){var e=/[\\^$*+?.()|[\]{}]/g,t=new RegExp(e.source);Object.defineProperty(RegExp,"escape",{configurable:!0,writable:!0,value:function(r){var n=String(r);return n&&t.test(n)?n.replace(e,"\\$&"):n}})}(),function(){var e=/{(\d+)(?:,([+-]?\d+))?}/g,t=new RegExp(e.source);Object.defineProperty(String,"format",{configurable:!0,writable:!0,value:function(r){function n(e,t,r){if(!t)return e;var n=Math.abs(t)-e.length;if(n<1)return e;var a=String(r).repeat(n);return t<0?e+a:a+e}if(arguments.length<2)return 0===arguments.length?"":r;var a=2===arguments.length&&Array.isArray(arguments[1])?[].concat(_toConsumableArray(arguments[1])):Array.prototype.slice.call(arguments,1);return 0===a.length?r:t.test(r)?(e.lastIndex=0,r.replace(e,function(e,t,r){var i=a[t];if(null==i)return"";for(;"function"==typeof i;)i=i();switch("undefined"==typeof i?"undefined":_typeof(i)){case"string":break;case"object":i=JSON.stringify(i);break;default:i=String(i)}return n(i,r?Number.parseInt(r,10):0," ")})):r}})}(),Object.defineProperty(String.prototype,"contains",{configurable:!0,writable:!0,value:function(){if(null==this)throw new TypeError("String.prototype.contains called on null or undefined");return String.prototype.indexOf.apply(this,arguments)!==-1}}),Object.defineProperty(String.prototype,"count",{configurable:!0,writable:!0,value:function(){if(null==this)throw new TypeError("String.prototype.count called on null or undefined");var e=String(arguments[0]||"");if(""===e)return 0;for(var t=String.prototype.indexOf,r=e.length,n=Number(arguments[1])||0,a=0;(n=t.call(this,e,n))!==-1;)++a,n+=r;return a}}),Object.defineProperty(String.prototype,"splice",{configurable:!0,writable:!0,value:function(e,t,r){if(null==this)throw new TypeError("String.prototype.splice called on null or undefined");var n=this.length>>>0;if(0===n)return"";var a=Number(e);Number.isSafeInteger(a)?a<0&&(a+=n,a<0&&(a=0)):a=0,a>n&&(a=n);var i=Number(t);(!Number.isSafeInteger(i)||i<0)&&(i=0);var o=this.slice(0,a);return"undefined"!=typeof r&&(o+=r),a+i<n&&(o+=this.slice(a+i)),o}}),Object.defineProperty(String.prototype,"splitOrEmpty",{configurable:!0,writable:!0,value:function(){if(null==this)throw new TypeError("String.prototype.splitOrEmpty called on null or undefined");return""===String(this)?[]:String.prototype.split.apply(this,arguments)}}),Object.defineProperty(String.prototype,"toLocaleUpperFirst",{configurable:!0,writable:!0,value:function(){if(null==this)throw new TypeError("String.prototype.toLocaleUpperFirst called on null or undefined");var e=String(this),t=_getCodePointStartAndEnd(e,0),r=t.char,n=t.end;return n===-1?"":r.toLocaleUpperCase()+e.slice(n+1)}}),Object.defineProperty(String.prototype,"toUpperFirst",{configurable:!0,writable:!0,value:function(){if(null==this)throw new TypeError("String.prototype.toUpperFirst called on null or undefined");var e=String(this),t=_getCodePointStartAndEnd(e,0),r=t.char,n=t.end;return n===-1?"":r.toUpperCase()+e.slice(n+1)}}),Object.defineProperty(Date.prototype,"toJSON",{configurable:!0,writable:!0,value:function(){return["(revive:date)",this.toISOString()]}}),Object.defineProperty(Function.prototype,"toJSON",{configurable:!0,writable:!0,value:function(){return["(revive:eval)","("+this.toString()+")"]}}),Object.defineProperty(Map.prototype,"toJSON",{configurable:!0,writable:!0,value:function(){return["(revive:map)",[].concat(_toConsumableArray(this))]}}),Object.defineProperty(RegExp.prototype,"toJSON",{configurable:!0,writable:!0,value:function(){return["(revive:eval)",this.toString()]}}),Object.defineProperty(Set.prototype,"toJSON",{configurable:!0,writable:!0,value:function(){return["(revive:set)",[].concat(_toConsumableArray(this))]}}),Object.defineProperty(JSON,"reviveWrapper",{configurable:!0,writable:!0,value:function(e,t){if("string"!=typeof e)throw new TypeError("JSON.reviveWrapper code parameter must be a string");return["(revive:eval)",[e,t]]}}),Object.defineProperty(JSON,"_real_parse",{value:JSON.parse}),Object.defineProperty(JSON,"parse",{configurable:!0,writable:!0,value:function value(text,reviver){return JSON._real_parse(text,function(key,val){var value=val;if(Array.isArray(value)&&2===value.length)switch(value[0]){case"(revive:set)":value=new Set(value[1]);break;case"(revive:map)":value=new Map(value[1]);break;case"(revive:date)":value=new Date(value[1]);break;case"(revive:eval)":try{if(Array.isArray(value[1])){var $ReviveData$=value[1][1];value=eval(value[1][0])}else value=eval(value[1])}catch(e){}}else if("string"==typeof value&&"@@revive@@"===value.slice(0,10))try{value=eval(value.slice(10))}catch(e){}if("function"==typeof reviver)try{value=reviver(key,value)}catch(e){}return value})}}),Object.defineProperty(Array.prototype,"contains",{configurable:!0,writable:!0,value:function(){if(null==this)throw new TypeError("Array.prototype.contains called on null or undefined");return Array.prototype.includes.apply(this,arguments)}}),Object.defineProperty(Array.prototype,"containsAll",{configurable:!0,writable:!0,value:function(){if(null==this)throw new TypeError("Array.prototype.containsAll called on null or undefined");return Array.prototype.includesAll.apply(this,arguments)}}),Object.defineProperty(Array.prototype,"containsAny",{configurable:!0,writable:!0,value:function(){if(null==this)throw new TypeError("Array.prototype.containsAny called on null or undefined");return Array.prototype.includesAny.apply(this,arguments)}}),Object.defineProperty(String.prototype,"readBracketedList",{configurable:!0,writable:!0,value:function(){if(null==this)throw new TypeError("String.prototype.readBracketedList called on null or undefined");for(var e=new RegExp("(?:\\[\\[((?:\\s|\\S)*?)\\]\\])|([^\"'\\s]\\S*)","gm"),t=[],r=void 0;null!==(r=e.exec(this));)r[1]?t.push(r[1]):r[2]&&t.push(r[2]);return t}})}();var Browser=function(){var e=navigator.userAgent.toLowerCase(),t=e.includes("windows phone"),r=Object.freeze({Android:!t&&e.includes("android"),BlackBerry:/blackberry|bb10/.test(e),iOS:!t&&/ip(?:hone|ad|od)/.test(e),Windows:t||e.includes("iemobile"),any:function(){return r.Android||r.BlackBerry||r.iOS||r.Windows}}),n=!r.Windows&&!/khtml|trident|edge/.test(e)&&e.includes("gecko"),a=!e.includes("opera")&&/msie|trident/.test(e),i=a?function(){var t=/(?:msie\s+|rv:)(\d+\.\d)/.exec(e);return t?Number(t[1]):0}():null,o=e.includes("opera")||e.includes(" opr/"),s=o?function(){var t=new RegExp((/khtml|chrome/.test(e)?"opr":"version")+"\\/(\\d+\\.\\d+)"),r=t.exec(e);return r?Number(r[1]):0}():null;return Object.freeze({userAgent:e,isMobile:r,isGecko:n,isIE:a,ieVersion:i,isOpera:o,operaVersion:s})}(),Has=function(){var e=function(){try{return"function"==typeof document.createElement("audio").canPlayType}catch(e){}return!1}(),t=function(){try{return"Blob"in window&&"File"in window&&"FileList"in window&&"FileReader"in window&&!Browser.isMobile.any()&&(!Browser.isOpera||Browser.operaVersion>=15)}catch(e){}return!1}(),r=function(){try{return"geolocation"in navigator&&"function"==typeof navigator.geolocation.getCurrentPosition&&"function"==typeof navigator.geolocation.watchPosition}catch(e){}return!1}(),n=function(){try{return"MutationObserver"in window&&"function"==typeof window.MutationObserver}catch(e){}return!1}(),a=function(){try{return"performance"in window&&"function"==typeof window.performance.now}catch(e){}return!1}();return Object.freeze({audio:e,fileAPI:t,geolocation:r,mutationObserver:n,performance:a})}(),_ref3=function(){function e(t){if("object"!==("undefined"==typeof t?"undefined":_typeof(t))||null==t)return t;if("function"==typeof t.clone)return t.clone(!0);if(t.nodeType&&"function"==typeof t.cloneNode)return t.cloneNode(!0);var r=void 0;return Array.isArray(t)?r=[]:t instanceof Date?r=new Date(t.getTime()):t instanceof Map?(r=new Map,t.forEach(function(t,n){r.set(n,e(t))})):t instanceof RegExp?r=new RegExp(t):t instanceof Set?(r=new Set,t.forEach(function(t){r.add(e(t))})):r=Object.create(Object.getPrototypeOf(t)),Object.keys(t).forEach(function(n){return r[n]=e(t[n])}),r}function t(e){for(var t=document.createDocumentFragment(),r=document.createElement("p"),n=void 0;null!==(n=e.firstChild);){if(n.nodeType===Node.ELEMENT_NODE){var a=n.nodeName.toUpperCase();switch(a){case"BR":if(null!==n.nextSibling&&n.nextSibling.nodeType===Node.ELEMENT_NODE&&"BR"===n.nextSibling.nodeName.toUpperCase()){e.removeChild(n.nextSibling),e.removeChild(n),t.appendChild(r),r=document.createElement("p");continue}if(!r.hasChildNodes()){e.removeChild(n);continue}break;case"ADDRESS":case"ARTICLE":case"ASIDE":case"BLOCKQUOTE":case"CENTER":case"DIV":case"DL":case"FIGURE":case"FOOTER":case"FORM":case"H1":case"H2":case"H3":case"H4":case"H5":case"H6":case"HEADER":case"HR":case"MAIN":case"NAV":case"OL":case"P":case"PRE":case"SECTION":case"TABLE":case"UL":r.hasChildNodes()&&(t.appendChild(r),r=document.createElement("p")),t.appendChild(n);continue}}r.appendChild(n)}r.hasChildNodes()&&t.appendChild(r),e.appendChild(t)}function r(){try{return document.activeElement||null}catch(e){return null}}function n(e,t,r){var n="object"===("undefined"==typeof e?"undefined":_typeof(e))?e:document.getElementById(e);if(null==n)return null;var a=Array.isArray(t)?t:[t];jQuery(n).empty();for(var i=0,o=a.length;i<o;++i)if(Story.has(a[i]))return new Wikifier(n,Story.get(a[i]).processText().trim()),n;if(null!=r){var s=String(r).trim();""!==s&&new Wikifier(n,s)}return n}function a(e,t,r){return jQuery(document.createElement("span")).addClass("error").attr("title",r).text(L10n.get("errorTitle")+": "+(t||"unknown error")).appendTo(e),!1}function i(e,t){var r=i;switch("undefined"==typeof e?"undefined":_typeof(e)){case"number":if(Number.isNaN(e))return t;break;case"object":if(null===e)return t;if(Array.isArray(e))return e.map(function(e){return r(e,t)}).join(", ");if(e instanceof Set)return[].concat(_toConsumableArray(e)).map(function(e){return r(e,t)}).join(", ");if(e instanceof Map){var n=[].concat(_toConsumableArray(e)).map(function(e){return r(e[0],t)+" ⇒ "+r(e[1],t)}).join("; ");return"( "+n+" )"}return e instanceof Date?e.toLocaleString():"function"==typeof e.toString?e.toString():Object.prototype.toString.call(e);case"function":case"undefined":return t}return String(e)}return Object.freeze(Object.defineProperties({},{clone:{value:e},convertBreaks:{value:t},safeActiveElement:{value:r},setPageElement:{value:n},throwError:{value:a},toStringOrDefault:{value:i}}))}(),clone=_ref3.clone,convertBreaks=_ref3.convertBreaks,safeActiveElement=_ref3.safeActiveElement,setPageElement=_ref3.setPageElement,throwError=_ref3.throwError,toStringOrDefault=_ref3.toStringOrDefault;!function(){function e(e){13!==e.which&&32!==e.which||(e.preventDefault(),jQuery(safeActiveElement()||this).trigger("click"))}function t(e){return function(){var t=jQuery(this);t.is("[aria-pressed]")&&t.attr("aria-pressed","true"===t.attr("aria-pressed")?"false":"true"),e.apply(this,arguments)}}function r(e){return t(function(){jQuery(this).off(".aria-clickable").removeAttr("tabindex aria-controls aria-pressed").not("a,button").removeAttr("role").end().filter("button").prop("disabled",!0),e.apply(this,arguments)})}jQuery.fn.extend({ariaClick:function(n,a){if(0===this.length||0===arguments.length)return this;var i=n,o=a;return null==o&&(o=i,i=undefined),i=jQuery.extend({namespace:undefined,one:!1,selector:undefined,data:undefined,controls:undefined,pressed:undefined,label:undefined},i),"string"!=typeof i.namespace?i.namespace="":"."!==i.namespace[0]&&(i.namespace="."+i.namespace),"boolean"==typeof i.pressed&&(i.pressed=i.pressed?"true":"false"),this.filter("button").prop("type","button"),this.not("a,button").attr("role","button"),this.attr("tabindex",0),null!=i.controls&&this.attr("aria-controls",i.controls),null!=i.pressed&&this.attr("aria-pressed",i.pressed),null!=i.label&&this.attr({"aria-label":i.label,title:i.label}),this.not("button").on("keypress.aria-clickable"+i.namespace,i.selector,e),this.on("click.aria-clickable"+i.namespace,i.selector,i.data,i.one?r(o):t(o)),this}})}(),function(){jQuery.extend({wikiWithOptions:function(e){for(var t=arguments.length,r=Array(t>1?t-1:0),n=1;n<t;n++)r[n-1]=arguments[n];if(0!==r.length){var a=document.createDocumentFragment();r.forEach(function(t){return new Wikifier(a,t,e)});var i=[].concat(_toConsumableArray(a.querySelectorAll(".error"))).map(function(e){return e.textContent.replace(/^(?:(?:Uncaught\s+)?Error:\s+)+/,"")});if(i.length>0)throw new Error(i.join("; "))}},wiki:function(){for(var e=arguments.length,t=Array(e),r=0;r<e;r++)t[r]=arguments[r];this.wikiWithOptions.apply(this,[undefined].concat(t))}}),jQuery.fn.extend({wikiWithOptions:function(e){for(var t=arguments.length,r=Array(t>1?t-1:0),n=1;n<t;n++)r[n-1]=arguments[n];if(0===this.length||0===r.length)return this;var a=document.createDocumentFragment();return r.forEach(function(t){return new Wikifier(a,t,e)}),this.append(a),this},wiki:function(){for(var e=arguments.length,t=Array(e),r=0;r<e;r++)t[r]=arguments[r];return this.wikiWithOptions.apply(this,[undefined].concat(t))}})}();var Util=function(){function e(e){return Object.freeze(Object.assign(Object.create(null),e))}function t(e){return Object.prototype.toString.call(e).slice(8,-1)}function r(e){var t=void 0;switch("undefined"==typeof e?"undefined":_typeof(e)){case"number":t=e;break;case"string":t=Number(e);break;default:return!1}return!Number.isNaN(t)&&Number.isFinite(t)}function n(e){return"boolean"==typeof e||"string"==typeof e&&("true"===e||"false"===e)}function a(e){return String(e).trim().replace(/[^\w\s\u2013\u2014-]+/g,"").replace(/[_\s\u2013\u2014-]+/g,"-").toLocaleLowerCase()}function i(e){if(null==e)return"";var t=String(e);return t&&h.test(t)?t.replace(p,function(e){return g[e]}):t}function o(e){if(null==e)return"";var t=String(e);return t&&y.test(t)?t.replace(m,function(e){return v[e.toLowerCase()]}):t}function s(e,t){var r=String(e),n=Math.trunc(t),a=r.charCodeAt(n);if(Number.isNaN(a))return{char:"",start:-1,end:-1};var i={char:r.charAt(n),start:n,end:n};if(a<55296||a>57343)return i;if(a>=55296&&a<=56319){var o=n+1;if(o>=r.length)return i;var s=r.charCodeAt(o);return s<56320||s>57343?i:(i.char=i.char+r.charAt(o),i.end=o,i)}if(0===n)return i;var u=n-1,l=r.charCodeAt(u);return l<55296||l>56319?i:(i.char=r.charAt(u)+i.char,i.start=u,i)}function u(){return(Has.performance?performance:Date).now()}function l(e){var t=/^([+-]?(?:\d*\.)?\d+)([Mm]?[Ss])$/,r=t.exec(String(e));if(null===r)throw new SyntaxError('invalid time value syntax: "'+e+'"');var n=Number(r[1]);if(/^[Ss]$/.test(r[2])&&(n*=1e3),Number.isNaN(n)||!Number.isFinite(n))throw new RangeError('invalid time value: "'+e+'"');return n}function c(e){if("number"!=typeof e||Number.isNaN(e)||!Number.isFinite(e)){var t=void 0;switch("undefined"==typeof e?"undefined":_typeof(e)){case"string":t='"'+e+'"';break;case"number":t=String(e);break;default:t=Object.prototype.toString.call(e)}throw new Error("invalid milliseconds: "+t)}return e+"ms"}function d(e){if(!e.includes("-"))switch(e){case"bgcolor":return"backgroundColor";case"float":return"cssFloat";default:return e}var t="-ms-"===e.slice(0,4)?e.slice(1):e;return t.split("-").map(function(e,t){return 0===t?e:e.toUpperFirst()}).join("")}function f(e){var t=document.createElement("a"),r=Object.create(null);t.href=e,t.search&&t.search.replace(/^\?/,"").splitOrEmpty(/(?:&(?:amp;)?|;)/).forEach(function(e){var t=e.split("="),n=_slicedToArray(t,2),a=n[0],i=n[1];r[a]=i});var n=t.host&&"/"!==t.pathname[0]?"/"+t.pathname:t.pathname;return{href:t.href,protocol:t.protocol,host:t.host,hostname:t.hostname,port:t.port,path:""+n+t.search,pathname:n,query:t.search,search:t.search,queries:r,searches:r,hash:t.hash}}var p=/[&<>"'`]/g,h=new RegExp(p.source),g=Object.freeze({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;","`":"&#96;"}),m=/&(?:amp|#38|#x26|lt|#60|#x3c|gt|#62|#x3e|quot|#34|#x22|apos|#39|#x27|#96|#x60);/gi,y=new RegExp(m.source,"i"),v=Object.freeze({"&amp;":"&","&#38;":"&","&#x26;":"&","&lt;":"<","&#60;":"<","&#x3c;":"<","&gt;":">","&#62;":">","&#x3e;":">","&quot;":'"',"&#34;":'"',"&#x22;":'"',"&apos;":"'","&#39;":"'","&#x27;":"'","&#96;":"`","&#x60;":"`"});return Object.freeze(Object.defineProperties({},{toEnum:{value:e},toStringTag:{value:t},isNumeric:{value:r},isBoolean:{value:n},slugify:{value:a},escape:{value:i},unescape:{value:o},charAndPosAt:{value:s},fromCssTime:{value:l},toCssTime:{value:c},fromCssProperty:{value:d},parseUrl:{value:f},now:{value:u},random:{value:Math.random},entityEncode:{value:i},entityDecode:{value:o},evalExpression:{value:function(){return Scripting.evalJavaScript.apply(Scripting,arguments)}},evalStatements:{value:function(){return Scripting.evalJavaScript.apply(Scripting,arguments)}}}))}(),SimpleAudio=function(){function e(){return g}function t(e){g=!!e,l("mute",g)}function r(){return p}function n(e){p=Math.clamp(e,.2,5),l("rate",p)}function a(){return h}function i(e){h=Math.clamp(e,0,1),l("volume",h)}function o(){l("stop")}function s(e,t){if("function"!=typeof t)throw new Error("callback parameter must be a function");f.set(e,t)}function u(e){f.delete(e)}function l(e,t){f.forEach(function(r){return r(e,t)})}function c(){for(var e=arguments.length,t=Array(e),r=0;r<e;r++)t[r]=arguments[r];return new(Function.prototype.bind.apply(m,[null].concat(t)))}function d(){for(var e=arguments.length,t=Array(e),r=0;r<e;r++)t[r]=arguments[r];return new(Function.prototype.bind.apply(y,[null].concat(t)))}var f=new Map,p=1,h=1,g=!1,m=function(){function e(t){if(_classCallCheck(this,e),Array.isArray(t))this._create(t);else{if(!(t instanceof e))throw new Error("sources parameter must be an array of either URLs or source objects");this._copy(t)}}return _createClass(e,[{key:"_create",value:function(t){if(!Array.isArray(t)||0===t.length)throw new Error("sources parameter must be an array of either URLs or source objects");var r=/^data:\s*audio\/([^;,]+)\s*[;,]/i,n=/\.([^.\/\\]+)$/,a=e.getType,i=[],o=document.createElement("audio");if(t.forEach(function(e){var t=null;switch("undefined"==typeof e?"undefined":_typeof(e)){case"string":var s=void 0;if("data:"===e.slice(0,5)){if(s=r.exec(e),null===s)throw new Error("source data URI missing media type")}else if(s=n.exec(Util.parseUrl(e).pathname),null===s)throw new Error("source URL missing file extension");var u=a(s[1]);null!==u&&(t={src:e,type:u});break;case"object":if(null===e)throw new Error("source object cannot be null");if(!e.hasOwnProperty("src"))throw new Error('source object missing required "src" property');
